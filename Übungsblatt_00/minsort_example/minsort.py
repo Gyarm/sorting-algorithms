@@ -10,6 +10,19 @@ def minsort(lst):
     >>> minsort([])
     []
 
+    >>> minsort()
+    Traceback (most recent call last):
+        ...
+    TypeError: minsort() missing 1 required positional argument: 'lst'
+
+    >>> minsort(5)
+    Traceback (most recent call last):
+        ...
+    TypeError: lst must be a list
+
+    >>> minsort([500])
+    [500]
+
     >>> minsort("hallo")
     Traceback (most recent call last):
         ...

@@ -13,5 +13,5 @@ checkstyle:
 	$(CHECKSTYLE_CMD) *.py
 
 clean:
-	rm -f *.pyc
+	find ./ -name '*.pyc' -delete
 	rm -rf __pycache__
