@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 
 def minsort(lst):
@@ -34,9 +34,9 @@ def minsort(lst):
         raise TypeError('lst must be a list')
 
     n = len(lst)
-    for i in range(n):
+    for i, elem in enumerate(lst):
         # Find the minimum in list[i..n-1].
-        min_value = lst[i]
+        min_value = elem
         min_index = i
         for j in range(i + 1, n):
             if lst[j] < min_value:

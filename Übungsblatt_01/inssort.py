@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 
 def inssort(inList):
@@ -9,6 +9,12 @@ def inssort(inList):
 
     >>> inssort([])
     []
+
+    >>> inssort([100])
+    [100]
+
+    >>> inssort([3,2,2,3])
+    [2, 2, 3, 3]
 
     >>> inssort("hallo")
     Traceback (most recent call last):
@@ -22,22 +28,20 @@ def inssort(inList):
 
     outList = []
     j = 0
-    n = len(inList)
-    for i in range(n):
-        # Take elemt at index i.
-        elemToBeInserted = inList[i]
-
+    for elem in inList:
+        # go through outList to find index where elem fits
         for j in range(len(outList)):
             # check if element fits here
-            if elemToBeInserted < outList[j]:
+            if elem < outList[j]:
                 # if yes break; j will be used to identify the index in outList
                 break
         else:
             j += 1
 
-        outList = outList[:j] + [elemToBeInserted] + outList[j:]
+        outList = outList[:j] + [elem] + outList[j:]
 
     return outList
+
 
 if __name__ == "__main__":
     # Create an unsorted list of integers.
