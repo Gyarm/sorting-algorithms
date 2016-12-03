@@ -22,6 +22,7 @@ def inssort(inList):
     TypeError: inList must be a list
 
     """
+    #test
     # Check given parameter data type.
     if not type(inList) == list:
         raise TypeError('inList must be a list')
