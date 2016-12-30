@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.5"
+# command to install dependencies
+# install: "pip install -r requirements.txt"
+# Environment variables used to test sub directories
+env:
+  - TEST_DIR=Übungsblatt_00
+  - TEST_DIR=Übungsblatt_01
+# command to run tests
+script: cd $TEST_DIR && make all
