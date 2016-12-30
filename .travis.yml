@@ -8,7 +8,9 @@ before_install:
 # install: "pip install -r requirements.txt"
 # Environment variables used to test sub directories
 env:
-  - TEST_DIR=Übungsblatt_00
+  - TEST_DIR=Übungsblatt_00/minsort_example
   - TEST_DIR=Übungsblatt_01
+  - TEST_DIR=Übungsblatt_02
+  - TEST_DIR=Übungsblatt_04
 # command to run tests
 script: cd $TEST_DIR && make all
