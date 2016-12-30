@@ -1,6 +1,8 @@
 language: python
 python:
   - "3.5"
+before_install:
+  - sudo pip install flake8
 # command to install dependencies
 # install: "pip install -r requirements.txt"
 # Environment variables used to test sub directories
