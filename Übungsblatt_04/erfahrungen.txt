@@ -1,0 +1,18 @@
+Comparison of Runtimes with 'allCountries.zip' as input:
+
+# Before implementing read_info_from_file() with yield command:
+sorting: 4627.5 sec
+map: 	   64.3 sec
+
+# After implementing read_info_from_file() with yield command:
+sorting: 6000.5 sec
+map:       80.3 sec
+map+DE:	  156.5 sec
+
+The measured runtimes show what code structure indicates:
+- The implementation with a list makes it necessary to go through the list n times. The list has a size of n (worst case). That results in a calculated runtime of O(n*n).
+- With a dictionary the running through already found data sets is been omitted. Therefore we have a calculated runtime of O(n).
+- It makes sense that the runtime of the algorithm that checks the country code takes twice as long as without that check since we go through the whole file twice. -> O(n+n)
+
+What makes no sense to me is that the runtime seems to increase after I implemented the read_info_from_file() method with a generator.
+Maybe it can be explained because I only took one sample measuring the runtime...
