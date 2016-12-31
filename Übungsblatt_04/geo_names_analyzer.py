@@ -3,15 +3,18 @@
 import zipfile
 import operator
 import sys
+import timeit
 
 
-def read_info_from_file(line):
-    if line[0] == '#':
-        return
-
-    arr = line.split('\t')
-    if (arr[6] == 'P') & (int(arr[14]) > 0):
-        return arr[1]
+def read_info_from_file(filename):
+    with zipfile.ZipFile(filename + ".zip") as z:
+        with z.open(filename + ".txt") as f:
+            for line in f:
+                if line[0] == '#':
+                    continue
+                arr = line.decode('utf8').split('\t')
+                if ('P' in arr[6]) & (int(arr[14]) > 0):
+                    yield (arr[1], arr[8])
 
 
 def compute_most_frequent_city_names_by_map(filename):
@@ -30,9 +33,7 @@ def compute_most_frequent_city_names_by_map(filename):
 
     >>> compute_most_frequent_city_names_by_map("TestData")
     ... #doctest: +NORMALIZE_WHITESPACE
-    Mooshöhe\t3
-    Gmünd\t2
-    Blabergalm\t1
+    [('Mooshöhe', 3), ('Gmünd', 2), ('Blabergalm', 1)]
 
     >>> compute_most_frequent_city_names_by_map("Austria")
     Error while processing file.
@@ -43,26 +44,17 @@ def compute_most_frequent_city_names_by_map(filename):
 
     cities = {}
     try:
-        with zipfile.ZipFile(filename + ".zip") as z:
-            with z.open(filename + ".txt") as f:
-                for line in f:
-                    info = read_info_from_file(line.decode('utf8'))
-                    if info is not None:
-                        if info in cities:
-                            cities[info] += 1
-                        else:
-                            cities[info] = 1
+        for city in read_info_from_file(filename):
+            if city is not None:
+                # .get method of dict() saves an if statement
+                cities[city[0]] = cities.get(city[0], 0) + 1
     except:
         print("Error while processing file.")
         return
+
     sorted_cities = sorted(cities.items(),
                            key=operator.itemgetter(1), reverse=True)
-
-    for top in range(0, 3):
-        pair = sorted_cities.pop(0)
-        print(pair[0] + "\t" + str(pair[1]))
-        if len(sorted_cities) == 0:
-            break
+    return sorted_cities
 
 
 def compute_most_frequent_city_names_by_sorting(filename):
@@ -79,11 +71,9 @@ def compute_most_frequent_city_names_by_sorting(filename):
         ...
     ValueError: Filename must be of type String
 
-    >>> compute_most_frequent_city_names_by_map("TestData")
+    >>> compute_most_frequent_city_names_by_sorting("TestData")
     ... #doctest: +NORMALIZE_WHITESPACE
-    Mooshöhe\t3
-    Gmünd\t2
-    Blabergalm\t1
+    [['Mooshöhe', 3], ['Gmünd', 2], ['Blabergalm', 1]]
 
     >>> compute_most_frequent_city_names_by_sorting("Austria")
     Error while processing file.
@@ -94,30 +84,56 @@ def compute_most_frequent_city_names_by_sorting(filename):
 
     cities = []
     try:
-        with zipfile.ZipFile(filename + ".zip") as z:
-            with z.open(filename + ".txt") as f:
-                for line in f:
-                    info = read_info_from_file(line.decode('utf8'))
-                    if info is not None:
-                        for city in cities:
-                            if info == city[0]:
-                                city[1] += 1
-                                break
-                        else:
-                            cities.append([info, 1])
+        for city_tuple in read_info_from_file(filename):
+            if city_tuple is not None:
+                for city in cities:
+                    if city_tuple[0] == city[0]:
+                        city[1] += 1
+                        break
+                else:
+                    cities.append([city_tuple[0], 1])
     except:
         print("Error while processing file.")
         return
     sorted_cities = sorted(cities, key=operator.itemgetter(1), reverse=True)
-    for top in range(0, 3):
-        pair = sorted_cities.pop(0)
-        print(pair[0] + "\t" + str(pair[1]))
-        if len(sorted_cities) == 0:
-            break
+    return sorted_cities
+
+
+def compare_runtimes():
+    print("Comparing runtimes:")
+    print("Runtime of compute_most_frequent_city_names_by_map(\'AT\')")
+    print(timeit.timeit(
+         "compute_most_frequent_city_names_by_map(\'AT\')",
+         number=10, globals=globals()))
+    print("Runtime of compute_most_frequent_city_names_by_sorting(\'AT\')")
+    print(timeit.timeit(
+         'compute_most_frequent_city_names_by_sorting(\'AT\')',
+         number=10, globals=globals()))
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Function takes 1 argument: filename")
     else:
-        compute_most_frequent_city_names_by_sorting(sys.argv[1])
+        print("compute_most_frequent_city_names_by_sorting('"
+              + sys.argv[1] + "'):")
+        sorted_cities = compute_most_frequent_city_names_by_sorting(
+             sys.argv[1])
+        # print result
+        for top in range(0, 3):
+            pair = sorted_cities.pop(0)
+            print(pair[0] + "\t" + str(pair[1]))
+            if len(sorted_cities) == 0:
+                break
+
+        print("compute_most_frequent_city_names_by_map('"
+              + sys.argv[1] + "'):")
+        sorted_cities = compute_most_frequent_city_names_by_map(sys.argv[1])
+        # print result
+        for top in range(0, 3):
+            pair = sorted_cities.pop(0)
+            print(pair[0] + "\t" + str(pair[1]))
+            if len(sorted_cities) == 0:
+                break
+
+        compare_runtimes()
