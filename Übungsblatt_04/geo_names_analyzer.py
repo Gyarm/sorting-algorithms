@@ -99,6 +99,31 @@ def compute_most_frequent_city_names_by_sorting(filename):
     return sorted_cities
 
 
+def compute_most_frequent_city_names_by_map_DE(filename):
+    # input handling
+    if type(filename) != str:
+        raise ValueError("Filename must be of type String")
+
+    cities = {}
+    try:
+        for city in read_info_from_file(filename):
+            if city is not None:
+                if 'DE' in city[1]:
+                    cities[city[0]] = 0
+        for city in read_info_from_file(filename):
+            if city is not None:
+                if city[0] in cities:
+                    cities[city[0]] += 1
+
+    except:
+        print("Error while processing file.")
+        return
+
+    sorted_cities = sorted(cities.items(),
+                           key=operator.itemgetter(1), reverse=True)
+    return sorted_cities
+
+
 def compare_runtimes():
     print("Comparing runtimes:")
     print("Runtime of compute_most_frequent_city_names_by_map(\'AT\')")
@@ -121,19 +146,32 @@ if __name__ == "__main__":
              sys.argv[1])
         # print result
         for top in range(0, 3):
-            pair = sorted_cities.pop(0)
-            print(pair[0] + "\t" + str(pair[1]))
             if len(sorted_cities) == 0:
                 break
+            pair = sorted_cities.pop(0)
+            print(pair[0] + "\t" + str(pair[1]))
 
         print("compute_most_frequent_city_names_by_map('"
               + sys.argv[1] + "'):")
         sorted_cities = compute_most_frequent_city_names_by_map(sys.argv[1])
         # print result
         for top in range(0, 3):
-            pair = sorted_cities.pop(0)
-            print(pair[0] + "\t" + str(pair[1]))
             if len(sorted_cities) == 0:
                 break
+            pair = sorted_cities.pop(0)
+            print(pair[0] + "\t" + str(pair[1]))
 
         compare_runtimes()
+
+        print("Most frequent city names that exist in Germany as well:")
+        start = timeit.default_timer()
+        sorted_cities = compute_most_frequent_city_names_by_map_DE(
+             "allCountries")
+        end = timeit.default_timer()
+        # print result
+        for top in range(0, 3):
+            if len(sorted_cities) == 0:
+                break
+            pair = sorted_cities.pop(0)
+            print(pair[0] + "\t" + str(pair[1]))
+        print("Runtime: " + str(end-start))
