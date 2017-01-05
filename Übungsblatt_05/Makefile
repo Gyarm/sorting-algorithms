@@ -1,5 +1,5 @@
 TEST_CMD = python3 -m doctest
-CHECKSTYLE_CMD = flake8
+CHECKSTYLE_CMD = python3 -m flake8
 
 all: compile test checkstyle clean
 
