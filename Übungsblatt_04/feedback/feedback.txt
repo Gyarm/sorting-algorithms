@@ -1,0 +1,31 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	read_info_from_file: Ok
+	compute_most_frequent_city_names_by_map: Ok
+	compute_most_frequent_city_names_by_sorting:
+		The key point of this method is that we sort the list twice.
+		The first time we sort the whole list of city names with the name key.
+		This results in a list which contains "blocks" where the name is equal.
+		The size of these blocks corresponds to the frequency of the name.
+		Since we are using (hopefully) not minsort the runtime of our
+		sort algorithm is O(n log n) (heapsort) or similar.
+		With the iteration of the sorted list we end up at O(n log n) + O(n)
+		which is O(n log n).
+
+		See geo_names_analyzer.py for a reference.
+
+Exercise 2:
+	You are currently reading and processing the data interleaved using
+	the generator function (yield).
+	Since we want to solely measure the runtime of our sorting / hash
+	algorithm both steps have to be separated.
+	The actual runtime of sorting or mapping is about half a second
+	while reading the complete database takes about one minute of time.
+	So we generate a lot of noise reading the file compared to the actual
+	runtime of our algorithm.
+
+	See geo_names_analyzer.py for a reference.
+
+Don't hesitate to ask if you need help or something is unclear.

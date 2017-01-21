@@ -36,8 +36,8 @@ def inssort(inList):
             if elem < outList[j]:
                 # if yes break; j will be used to identify the index in outList
                 break
-        else:
-            j += 1
+            else:
+                j += 1
 
         outList = outList[:j] + [elem] + outList[j:]
 
