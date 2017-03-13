@@ -1,0 +1,39 @@
+Exercise 1:
+(A) = Sort n randomly chosen numbers using quicksort
+(B) = Insert n randomly chosen numbers into an initially empty hash table
+
+Number of operations: (worst case)			
+Quicksort:
+The worst case for quicksort is when the pivot element is always the smalles/biggest of all elements.
+The list shrinks 1 element each iteration. This results in a runtime O(n*n).
+
+Hashtable:
+The worst case for inserting n elements to a hash table is when they all hash to the same bucket. That means that every time a number is inserted, the algorithm has to iterate over all elements that exist in this bucket to check if it is already present. This would result in a runtime of O(n*n).
+
+Number of block operations:
+Quicksort:
+In the worst case, quicksort has IO(n) <= O(n/B*n/B) block operations.
+If n > cache size, it wouldn't be so bad, because all the n elements are divided in parts that will be processed one after each other -> most of the data needed is present in cache.
+
+Hashtable:
+As long as n < cache size, all numbers stored in the bucket are present in cache.
+As soon as n > cach size, it is very unlikely that the right datat is present in cache.
+This applies not only to the case when all elemnts hash to a single bucket but as well when the load factor of the hash table is bad.
+That means when n > cache size IO(n) <= O(n*n)
+
+Which one is faster?:
+Since we are talking about worst case scenarios it is hard to really know what will be faster in practice.
+As long as n < cache size, the hashtable will be faster because it is O(1).
+As soon as n >> cach size, I think quicksort will be faster.
+
+
+Exercise 4:
+The plot 'runtime_comp.png' shows that the hash table is way faster than the quicksort algorithm.
+The used i5 CPU has 3MB cache size.
+Asuming an integer size of 2Byte the cache will be full at about 1,5x10^6 numbers.
+I think this is why we can see a rise of runtime of the hash table at about this point.
+It goes from O(1) to O(n*n)
+
+I'm not really sure why runtime of quicksort gets so bad.
+
+Comparing this to the plot 'runtime_comp_pythonsort.png' where i used the list.sort() function of python, python's timsort is giving way better results.

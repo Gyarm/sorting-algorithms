@@ -1,0 +1,14 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct.
+
+Exercise 2:
+	You correctly found the spots where the heap condition is not fulfilled.
+	Since the exercise states that the edges should be marked you have to
+	mark the arrows.
+	I have modified the image to show you the difference.
+	feedback/MinHeap.xml / feedback/MinHeap.png
+
+Don't hesitate to ask if you need help or something is unclear.

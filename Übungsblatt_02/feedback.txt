@@ -1,0 +1,11 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 3:
+	Correct
+
+A Python tip:
+	You can subtract something from a variable with the "-=" operator.
+	So "index = index-1" can be combined to "index -= 1"
+
+Don't hesitate to ask if you need help or something is unclear.

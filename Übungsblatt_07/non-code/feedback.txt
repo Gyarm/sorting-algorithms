@@ -1,0 +1,34 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct
+
+Exercise 2:
+	Do not measure the runtime of each append operation since buffering of the
+	console output and displaying on the interface creates noise which
+	influences your timing measurement.
+	You might also consider using the timeit method of the module timeit
+	since it deactivates the garbage collector and other internal details
+	which might have a negative impact.
+	See image test1_example.png for a graph created with the method below.
+
+def test1():
+    """use an empty array and append 10M elements"""
+    size = 10000000
+    samples = 100  # 100 measure points
+
+    # use an inner function for the loop
+    def testFnc(n, array):
+        for i in range(n):
+            array.append(random.randint(0, 1000000))
+
+    t1 = DynamicIntArray()
+    runtime = 0.0
+    factor = int(size / samples)
+    for n in range(0, samples + 1):
+        runtime += timeit(stmt=lambda: testFnc(factor, arr),
+                          setup='import random\n', number=1)
+        print("%d\t%.5f" % (n * factor, runtime))
+
+Don't hesitate to ask if you need help or something is unclear.

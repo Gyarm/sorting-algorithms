@@ -1,0 +1,23 @@
+-----------------------------------------------
+Test with c-universal hash function:
+HashFunction: a * x + b mod 101 mod 100
+Size of key sets = 20 out of universe range(0,100)
+Number of key sets = 1000
+Mean	min	max
+0.0	0.0	0.0
+-----------------------------------------------
+Test with non-universal hash function:
+HashFunction: a * x + b mod 10 mod 100
+Size of key sets = 20 out of universe range(0,100)
+Number of key sets = 1000
+Mean	min	max
+5.0	5.0	5.0
+
+C-Universal:
+It makes sense that in a set of 1000 Hashfunctions, there is at least one, that gets us a minimum meanBucketSize of 1, which results in c=0.
+The result also shows that even for a very large number of key sets, there is always at least one hash function that gives us a c of 0.
+
+Non-C-Universal:
+It is obvious, that a hash function, that maps to a hash tabel on the basis of mod 10 can never get a smaller MeanBucketSize than 2 (because the number of keys k=20).
+And because c = (MeanBucketSize - 1) * m/len(S)
+c can never get smaller that 5, which explains the above result.

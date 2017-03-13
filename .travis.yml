@@ -12,5 +12,8 @@ env:
   - TEST_DIR=Übungsblatt_01
   - TEST_DIR=Übungsblatt_02
   - TEST_DIR=Übungsblatt_04
+  - TEST_DIR=Übungsblatt_07
+  - TEST_DIR=Übungsblatt_08
+
 # command to run tests
 script: cd $TEST_DIR && make all

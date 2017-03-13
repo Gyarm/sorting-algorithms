@@ -1,0 +1,30 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+Number of operations: (worst case)
+	Quicksort: Correct
+	Non-Universal hash map: Correct
+
+Number of block operations:
+	Quicksort: Correct
+	Non-Universal hash map: Correct
+
+Which one is faster?: Correct
+
+Exercise 2:
+	Correct
+
+Exercise 3:
+	Correct
+
+Exercise 4:
+	Since your quicksort implementation runs on python the execution has some
+	management overhead. This might include list bound checking and call-stack
+	overhead. Additional to this quicksort has a minimum runtime of O(n log n)
+	which scales with your sample size function (2^n).
+	This results in f(n) = 2^n log 2^n = 2^n * n * log 2.
+	If you compare this to universal hashing with f(n) = 2^n the difference
+	should be clear.
+
+Don't hesitate to ask if you need help or something is unclear.
