@@ -36,16 +36,17 @@ def inssort(inList):
             if elem < outList[j]:
                 # if yes break; j will be used to identify the index in outList
                 break
-        else:
-            j += 1
-
+            else:
+                j += 1
+ 
+        print("j={0}".format(j))
         outList = outList[:j] + [elem] + outList[j:]
-
+        print (outList)
     return outList
 
 
 if __name__ == "__main__":
     # Create an unsorted list of integers.
-    numbers = [10, 4, 1, 5, 2, 3, 11, 3, 9]
+    numbers = [10, 12 , 1, 5, 2, 3, 11, 3, 9]
     # Sort the list.
     print(inssort(numbers))
