@@ -1,0 +1,29 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct.
+	You could simplify sum(keyOccurences.values()) to len(S) which might
+	be faster.
+
+Exercise 2:
+	Correct
+
+Exercise 3:
+	Correct
+
+create_random_universe_subset:
+	"Write a function estimate_c_for_multiple_sets which randomly
+	generates a given number n of key sets with a given size k
+	(no duplicates inside one set of keys!)"
+	While this states that a key set may only contain unique keys
+	there is no need for unique key sets.
+
+	So the create_random_universe_subset can be simplified to:
+	create_random_universe_subset(k, u):
+		return random.sample(range(u), k)
+
+Exercise 4:
+	Correct
+
+Don't hesitate to ask if you need help or something is unclear.
